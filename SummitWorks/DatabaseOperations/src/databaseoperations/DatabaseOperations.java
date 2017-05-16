@@ -14,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- *
+ * Port 3306. Window Server Name MySQL57. 3310
  * @author Hien Long
  */
 public class DatabaseOperations {
@@ -37,16 +37,17 @@ public class DatabaseOperations {
     /*
     Insert Operation
      */
-    public void Insert(String name, String ID, String major, String GPA) throws SQLException {
+    public void Insert(Student student) throws SQLException {
 
-        String insertStatement = "INSERT INTO STUDENT" + "(NAME, ID, MAJOR, GPA) VALUES" + "(?,?,?,?)";
+        String insertStatement = "INSERT INTO STUDENT" + "(ID, NAME, AGE) VALUES" + "(?,?,?)";
         try {
             dbConnection = getConnection();
+            System.out.println(dbConnection);
             statement = dbConnection.prepareStatement(insertStatement);
-            statement.setString(1, name);
-            statement.setString(2, ID);
-            statement.setString(3, major);
-            statement.setString(4, GPA);
+            statement.setString(1, student.getStudentName());
+            statement.setLong(2, student.getStudentId());
+            statement.setInt(3, student.getAge());
+           
             // execute insert SQL statement
             statement.executeUpdate();
         } catch (SQLException e) {
