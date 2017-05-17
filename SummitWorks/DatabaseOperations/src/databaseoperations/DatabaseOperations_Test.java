@@ -6,7 +6,8 @@
 4. Display all records
 5. Get 
 6. Exit. 
-You have to display a menu to the customer, let customer choose the option whatever he wanted to do, depending on the customer option, you have to run the corresponding methods.
+You have to display a menu to the customer, let customer choose the option whatever he wanted to do, 
+depending on the customer option, you have to run the corresponding methods.
 [Insert a new record in data base table, update the existing record, delete etc on student object]
 
  */
@@ -31,36 +32,64 @@ public class DatabaseOperations_Test {
         final String USER = "root";
         final String PASSWORD = "1490";
         DatabaseOperations operations = new DatabaseOperations(DB_DRIVER, DB_CONNECTION, USER, PASSWORD);
-//        Scanner keyboard = new Scanner(System.in);
-//        System.out.println("Please choose one of these option: "
-//                + "\n1.Insert"
-//                + "\n2.Delete"
-//                + "\n3.Update"
-//                + "\n4.Display all records"
-//                + "\n5.Get"
-//                + "\n6.Exit");
-//        String input = keyboard.nextLine();
-//        switch (input) {
-//            case "1":
-//                System.out.println("Please enter the student info: " + "\nStudent ID: ");
-//                long id = keyboard.nextInt();
-//                System.out.println("Student name: ");
-//                String name = keyboard.nextLine();
-//                System.out.println("Student age: ");
-//                int age = keyboard.nextInt();
-//                Student student = new Student(id, name, age);
-//                operations.Insert(student);
-//
-//            case "2":
-//            case "3":
-//            case "4":
-//            case "5":
-//            case "6":
-//                System.exit(0);
-//        }
-operations.getConnection();
-Student student = new Student(1, "HL", 20);
-operations.Insert(student);
+        long id;
+        int age;
+        String name;
+        Student student;
+        Scanner keyboard = new Scanner(System.in);
+        System.out.println("Please choose one of these option: "
+                + "\n1.Insert"
+                + "\n2.Delete"
+                + "\n3.Update"
+                + "\n4.Display all records"
+                + "\n5.Get"
+                + "\n6.Exit");
+        String input = keyboard.next();
+        switch (input) {
+            // INSERT
+            case "1":
+                System.out.println("Student ID: ");
+                id = keyboard.nextLong();
+                System.out.println("Student name: ");
+                name = keyboard.next();
+                System.out.println("Student age: ");
+                age = keyboard.nextInt();
+                student = new Student(id, name, age);
+                operations.Insert(student);
+                break;
+            // DELETE
+            case "2":
+                System.out.println("Please enter student ID who will be deleted: ");
+                id = keyboard.nextLong();
+                operations.Delete(id);
+                break;
+
+            // UPDATE, assume user wants to update both name, and age. 
+            case "3":
+                System.out.println("Please enter student id to be updated: ");
+                id = keyboard.nextLong();
+                System.out.println("Enter the updated name: ");
+                name = keyboard.next();
+                System.out.println("Enter the updated age: ");
+                age = keyboard.nextInt();
+                student = new Student(id, name, age);
+                operations.Update(student);
+                break;
+
+            // DISPLAY ALL RECORDS
+            case "4":
+                operations.DisplayAll();
+                break;
+            case "5":
+                System.out.println("Please enter the student id: ");
+                id = keyboard.nextLong();
+                operations.Get(id);
+                break;
+            case "6":
+                System.exit(0);
+                break;
+        }
+
     }
 
 }
